@@ -1,0 +1,8 @@
+server {
+  root /data/up1;
+
+  location {
+
+  }
+}
+

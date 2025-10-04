@@ -1,0 +1,10 @@
+http {
+    server {
+        port 3040;
+        root /data/up1;
+
+        location {
+
+        }
+    }
+}
