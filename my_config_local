@@ -1,0 +1,109 @@
+# Example server configuration file for Notes Sharing App
+
+# Port where the server will listen
+port 80;
+
+# ==============================================================================
+# AUTHENTICATION ENDPOINTS
+# ==============================================================================
+
+# Simple Authentication Handler - Email-based login
+location /login SimpleAuthHandler {
+  # No additional parameters needed
+}
+
+# Logout endpoint (can use the same handler)
+location /logout SimpleAuthHandler {
+  # No additional parameters needed
+}
+
+# ==============================================================================
+# NOTES SHARING ENDPOINTS
+# ==============================================================================
+
+# Search Interface - Beautiful search page for notes
+location /search UploadHandler {
+  upload_dir ./uploads;
+}
+
+# Browse Interface - Browse all notes by category
+location /browse UploadHandler {
+  upload_dir ./uploads;
+}
+
+# Notes API - Search and filter notes
+location /api/notes UploadHandler {
+  upload_dir ./uploads;
+}
+
+# Course-specific notes API
+location /api/courses UploadHandler {
+  upload_dir ./uploads;
+}
+
+# User-specific notes API  
+location /api/users UploadHandler {
+  upload_dir ./uploads;
+}
+
+# General search API
+location /api/search UploadHandler {
+  upload_dir ./uploads;
+}
+
+# Download specific note files
+location /api/download UploadHandler {
+  upload_dir ./uploads;
+}
+
+# ==============================================================================
+# EXISTING ENDPOINTS (Keep these)
+# ==============================================================================
+
+# Echo handler - responds with the request itself
+location /echo EchoHandler {
+  # No parameters needed for echo handler
+}
+
+# Static file handler - serves files from specified directory
+location /var StaticHandler {
+  root ./var;  # Relative path to file directory
+}
+
+# Different static handler for a different URL path
+location /usr StaticHandler {
+  root ./usr;  # Different root directory
+}
+
+# API Handler - Processes CRUD requests
+location /api APIHandler {
+  data_path ./database;
+}
+
+# Sleep Handler - For testing
+location /sleep SleepHandler {
+}
+
+# Health Handler - Performs health check on server
+location /health HealthHandler {
+}
+
+# Upload Handler - Handles file uploads with size and type validation
+location /upload UploadHandler {
+  upload_dir ./uploads;
+  max_file_size 10485760;  # 10MB in bytes (10 * 1024 * 1024)
+}
+
+# TextView Handler - Reads text files
+location /view TextViewHandler {
+  view_dir ./uploads;
+}
+
+# DO NOT use trailing slashes on locations - this would cause an error:
+# location /resources/ StaticHandler {
+#   root ./resources;
+# }
+
+# Note: Duplicate locations are not allowed and will cause an error
+# This configuration follows the location-major format
+# Each handler has its own section with typed parameters

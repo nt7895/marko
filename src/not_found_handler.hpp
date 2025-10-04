@@ -1,0 +1,26 @@
+#ifndef HTTP_NOT_FOUND_HANDLER_HPP
+#define HTTP_NOT_FOUND_HANDLER_HPP
+
+#include "request_handler.hpp"
+#include "config_parser.h"
+#include "request_handler_registry.h"
+
+namespace http {
+namespace server {
+
+class NotFoundHandler : public RequestHandler {
+public:
+  static RequestHandler* Init(const std::string& path_prefix, const NginxConfig* config) {
+    return new NotFoundHandler();
+  }
+  
+  // Register handler with static initializer function
+  static bool Register();
+  
+  std::unique_ptr<reply> handle_request(const request& request) override;
+};
+
+} // namespace server
+} // namespace http
+
+#endif // HTTP_NOT_FOUND_HANDLER_HPP
